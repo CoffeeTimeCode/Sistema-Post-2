@@ -18,7 +18,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        return view('admin.categorias.index');
+        return view('admin.categorias.index')->with('categorias', Categorias::all());
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         Categorias::create($request->all());
-        return back();        
+        return back()->with('categorias', Categorias::all());
     }
 
     /**

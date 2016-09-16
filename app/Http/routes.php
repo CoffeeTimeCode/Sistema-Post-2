@@ -21,5 +21,5 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/painel','Admin\PainelController@index');
     Route::get('/categorias','Admin\CategoriasController@index');
-    Route::post('/categorias','Admin\CategoriasController@store');    
+    Route::post('/categorias','Admin\CategoriasController@store');
  });

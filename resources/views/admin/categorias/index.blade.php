@@ -21,7 +21,24 @@
   </div>
 
   <div class="col-md-8">
-
+      <h2>Lista de Categorias</h2>
+      <table class="table table-striped">
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th></th>
+        </tr>
+        <?php foreach ($categorias as $key => $categoria): ?>
+          <tr>
+            <td>{!! $categoria->id !!}</td>
+            <td>{!! $categoria->categoria !!}</td>
+            <td>
+              <a>Editar</a>
+              <a>Deletar</a>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
   </div>
 </div>
 @endsection
