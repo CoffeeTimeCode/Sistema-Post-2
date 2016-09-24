@@ -18,7 +18,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        return view('admin.categorias.index')->with('categorias', Categorias::all());
+        return view('admin.categorias.index')->with('categorias', Categorias::where('ativo','=',true)->get());
     }
 
     /**
@@ -62,7 +62,7 @@ class CategoriasController extends Controller
      */
     public function edit($id)
     {
-        //
+       return view('admin.categorias.edit')->with('categoria',Categorias::find($id));
     }
 
     /**
@@ -74,7 +74,11 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoria = Categorias::find($id);
+        $categoria->categoria = $request->categoria;
+        $categoria->save();
+
+        return redirect('/categorias');
     }
 
     /**
@@ -85,6 +89,10 @@ class CategoriasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categorias::find($id);
+        $categoria->ativo = false;
+        $categoria->save();
+
+        return redirect('/categorias');
     }
 }

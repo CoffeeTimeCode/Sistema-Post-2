@@ -22,4 +22,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/painel','Admin\PainelController@index');
     Route::get('/categorias','Admin\CategoriasController@index');
     Route::post('/categorias','Admin\CategoriasController@store');
+
+    Route::get('/categorias/editar/{id}','admin\CategoriasController@edit');
+    Route::post('/categorias/salvar-alteracao/{id}','Admin\CategoriasController@update');
+
+    Route::get('/categorias/deletar/{id}','Admin\CategoriasController@destroy');
  });

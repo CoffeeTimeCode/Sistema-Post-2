@@ -12,7 +12,7 @@
 
       <div class="form-group">
         <label for="">Nome da Categoria</label>
-        <input type="text" name="categoria" ng-model="categoria" class="form-control" id="" placeholder="" required ng-maxlength="75">
+        <input autocomplete="off" type="text" name="categoria" ng-model="categoria" class="form-control" id="" placeholder="" required ng-maxlength="75">
       </div>
 
       <button ng-if="frmCategorias.$valid" type="submit" class="btn btn-default">Adicionar</button>
@@ -33,8 +33,8 @@
             <td>{!! $categoria->id !!}</td>
             <td>{!! $categoria->categoria !!}</td>
             <td>
-              <a>Editar</a>
-              <a>Deletar</a>
+              <a href="{!! url('/categorias/editar/'.$categoria->id) !!}">Editar</a>
+              <a href="{!! url('/categorias/deletar/'.$categoria->id) !!}">Deletar</a>
             </td>
           </tr>
         <?php endforeach; ?>
