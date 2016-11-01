@@ -27,4 +27,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/categorias/salvar-alteracao/{id}','Admin\CategoriasController@update');
 
     Route::get('/categorias/deletar/{id}','Admin\CategoriasController@destroy');
+
+    Route::get('/criar-post','Admin\PostsController@create');
  });

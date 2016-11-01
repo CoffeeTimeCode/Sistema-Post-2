@@ -72,6 +72,7 @@
           <ul class="list-group">
             <li class="list-group-item"><a href="{{url('painel')}}">Painel</a></li>
             <li class="list-group-item"><a href="{{url('categorias')}}">Categorias</a></li>
+            <li class="list-group-item"><a href="{{url('criar-post')}}">Adicionar Post</a></li>
           </ul>
         </div>
         <div class="col-md-9">
