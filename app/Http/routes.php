@@ -1,5 +1,7 @@
 <?php
 
+use App\Posts;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,9 +16,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::auth();
-
 Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/painel','Admin\PainelController@index');
@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/categorias/deletar/{id}','Admin\CategoriasController@destroy');
 
     Route::get('/criar-post','Admin\PostsController@create');
+    Route::post('/criar-post','Admin\PostsController@store');
  });

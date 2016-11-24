@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Categorias;
+use App\Posts;
+use App\RelacaoPostCategoria;
+
+use Auth;
+
 class PostsController extends Controller
 {
     /**
@@ -26,7 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.posts.create')->with('categorias',Categorias::all());
     }
 
     /**
@@ -37,7 +43,18 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Posts;
+        $post->user_id = Auth::user()->id;
+        $post->titulo = $request->input('titulo');
+        $post->conteudo = $request->input('conteudo');
+        $post->save();
+
+        $relacaoPostCategoria = new RelacaoPostCategoria;
+        $relacaoPostCategoria->post_id = $post->id;
+        $relacaoPostCategoria->categoria_id = $request->input('categoria');
+        $relacaoPostCategoria->save();
+
+        return redirect('painel');
     }
 
     /**

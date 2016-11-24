@@ -1,6 +1,7 @@
 @extends('admin.app')
 @section('content')
-<form class="" action="" method="post" enctype="multipart/form-data">
+<form class="" action="{!! url('criar-post') !!}" method="post" enctype="multipart/form-data">
+  {!! csrf_field() !!}
   <div class="row">
     <h3>Adicionar Post</h3>
     <div class="col-md-12">
@@ -14,7 +15,9 @@
         <div class="form-group">
           <label for="">Selecione uma categoria:</label>
           <select class="form-control" name="categoria">
-
+            @foreach($categorias as $categoria)
+            <option value="{!! $categoria->id !!}">{!! $categoria->categoria !!}</option>
+            @endforeach
           </select>
         </div>
     </div>
