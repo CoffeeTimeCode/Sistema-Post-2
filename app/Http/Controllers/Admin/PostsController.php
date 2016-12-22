@@ -43,18 +43,31 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Posts;
-        $post->user_id = Auth::user()->id;
-        $post->titulo = $request->input('titulo');
-        $post->conteudo = $request->input('conteudo');
-        $post->save();
+      $mensagens = [
+        'imagem.required' => 'Você não colocou a imagem no texto.',
+        'imagem.mimes' => 'Somente imagem no formato de jpeg e png.',
+      ];
 
-        $relacaoPostCategoria = new RelacaoPostCategoria;
-        $relacaoPostCategoria->post_id = $post->id;
-        $relacaoPostCategoria->categoria_id = $request->input('categoria');
-        $relacaoPostCategoria->save();
+      $this->validate($request,[
+        'imagem' => 'required|mimes:jpeg,png',
+      ],$mensagens);
 
-        return redirect('painel');
+      $post = new Posts;
+      $post->user_id = Auth::user()->id;
+      $post->titulo = $request->input('titulo');
+      $post->conteudo = $request->input('conteudo');
+      $post->save();
+
+      $request->file('imagem')->move('imagens-post/',$post->id.'.'.$request->file('imagem')->getClientOriginalExtension());
+      $post->imagem = 'imagens-post/'.$post->id.'.'.$request->file('imagem')->getClientOriginalExtension();
+      $post->save();
+
+      $relacaoPostCategoria = new RelacaoPostCategoria;
+      $relacaoPostCategoria->post_id = $post->id;
+      $relacaoPostCategoria->categoria_id = $request->input('categoria');
+      $relacaoPostCategoria->save();
+
+      return redirect('painel');
     }
 
     /**
