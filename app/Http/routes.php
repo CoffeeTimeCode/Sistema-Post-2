@@ -30,4 +30,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/criar-post','Admin\PostsController@create');
     Route::post('/criar-post','Admin\PostsController@store');
+
+    Route::get('/lista-de-posts','Admin\PostsController@index');
  });

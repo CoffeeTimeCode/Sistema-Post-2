@@ -22,7 +22,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.posts.index')->with('posts',Posts::where('ativo','=',true)->orderBy('titulo','asc')->get());
     }
 
     /**
