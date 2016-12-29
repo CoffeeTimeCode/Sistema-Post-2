@@ -22,7 +22,14 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index')->with('posts',Posts::where('ativo','=',true)->orderBy('titulo','asc')->get());
+      $posts = Posts::where('ativo','=',true)->orderBy('titulo','asc')->get();
+      for ($i=0; $i < count($posts); $i++) {
+        $posts[$i]->categoria = RelacaoPostCategoria::
+                                join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                                ->where('relacao_post_categoria.post_id','=',$posts[$i]->id)
+                                ->first()->categoria;
+      }
+      return view('admin.posts.index')->with('posts',$posts);
     }
 
     /**

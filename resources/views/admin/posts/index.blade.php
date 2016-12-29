@@ -15,6 +15,7 @@
       <tr>
         <th>ID</th>
         <th>Título</th>
+        <th>Categoria</th>
         <th>Data</th>
         <th>Ações</th>
       </tr>
@@ -22,6 +23,7 @@
           <tr>
             <td>{!!$value->id!!}</td>
             <td>{!!$value->titulo!!}</td>
+            <td>{!!$value->categoria!!}</td>
             <td>{!!$value->created_at->diffForHumans()!!}</td>
             <td>
               <a href="#" class="btn btn-default">Visualizar</a>
