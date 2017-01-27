@@ -96,7 +96,12 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Posts::find($id);
+        $post->categoria = RelacaoPostCategoria::
+                                join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                                ->where('relacao_post_categoria.post_id','=',$post->id)
+                                ->first()->id;
+        return view('admin.posts.edit')->with('post',$post)->with('categorias',Categorias::all());
     }
 
     /**
@@ -108,7 +113,21 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Posts::find($id);
+        $post->titulo = $request->input('titulo');
+        $post->conteudo = $request->input('conteudo');
+        if(!is_null($request->file('imagem'))){
+          $request->file('imagem')->move('imagens-post/',$post->id.'.'.$request->file('imagem')->getClientOriginalExtension());
+          $post->imagem = 'imagens-post/'.$post->id.'.'.$request->file('imagem')->getClientOriginalExtension();
+        }
+        $post->save();
+
+        $categoria = RelacaoPostCategoria::where('post_id','=',$post->id)->first();
+        if($categoria->categoria_id!=$request->input('categoria')){
+          $categoria->categoria_id = $request->input('categoria');
+          $categoria->save();
+        }
+        return redirect('painel');
     }
 
     /**
@@ -119,6 +138,21 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Posts::find($id);
+        $post->ativo = false;
+        $post->save();
+
+        return redirect()->back();
+    }
+
+    public function pesquisar(Request $request){
+      $posts = Posts::where('titulo', 'like', '%'.$request->input('pesquisar').'%')->where('ativo','=',true)->orderBy('titulo','asc')->get();
+      for ($i=0; $i < count($posts); $i++) {
+        $posts[$i]->categoria = RelacaoPostCategoria::
+                                join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                                ->where('relacao_post_categoria.post_id','=',$posts[$i]->id)
+                                ->first()->categoria;
+      }
+      return view('admin.posts.index')->with('posts',$posts);
     }
 }

@@ -32,4 +32,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/criar-post','Admin\PostsController@store');
 
     Route::get('/lista-de-posts','Admin\PostsController@index');
+
+    Route::get('/deletar-post/{id}','Admin\PostsController@destroy');
+
+    Route::post('/pesquisar-post','Admin\PostsController@pesquisar');
+
+    Route::get('/editar-post/{id}','Admin\PostsController@edit');
+    Route::post('/editar-post/{id}','Admin\PostsController@update');
  });

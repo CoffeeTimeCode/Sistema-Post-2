@@ -3,10 +3,13 @@
 <h3>Lista de Posts</h3>
 <div class="row">
   <div class="col-md-12">
-    <div class="form-group pull-right">
-      <label for="">Pesquisar</label>
-      <input type="text" name="pesquisar" class="form-control" id="" placeholder="Pesquisar">
-    </div>
+    <form class="" action="{!!url('pesquisar-post')!!}" method="post">
+      {{csrf_field()}}
+      <div class="form-group pull-right">
+        <label for="">Pesquisar</label>
+        <input type="text" name="pesquisar" class="form-control" id="" placeholder="Pesquisar">
+      </div>
+    </form>
   </div>
 </div>
 <div class="row">
@@ -27,8 +30,8 @@
             <td>{!!$value->created_at->diffForHumans()!!}</td>
             <td>
               <a href="#" class="btn btn-default">Visualizar</a>
-              <a href="#" class="btn btn-info">Editar</a>
-              <a href="#" class="btn btn-danger">Deletar</a>
+              <a href="{!!url('/editar-post/'.$value->id)!!}" class="btn btn-info">Editar</a>
+              <a href="{!!url('/deletar-post/'.$value->id)!!}" class="btn btn-danger">Deletar</a>
             </td>
           </tr>
         <?php endforeach; ?>
