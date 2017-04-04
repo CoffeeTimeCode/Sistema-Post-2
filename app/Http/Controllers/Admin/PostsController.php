@@ -63,6 +63,7 @@ class PostsController extends Controller
       $post->user_id = Auth::user()->id;
       $post->titulo = $request->input('titulo');
       $post->conteudo = $request->input('conteudo');
+      $post->slug = $this->criar_slug($request->input('titulo'));
       $post->save();
 
       $request->file('imagem')->move('imagens-post/',$post->id.'.'.$request->file('imagem')->getClientOriginalExtension());
@@ -154,5 +155,11 @@ class PostsController extends Controller
                                 ->first()->categoria;
       }
       return view('admin.posts.index')->with('posts',$posts);
+    }
+
+    function criar_slug($titulo){
+      $procurar =   ['ã','â','ê','é','í','õ','ô','ú',' '];
+      $substituir = ['a','a','e','e','i','o','o','u','-'];
+      return str_replace($procurar,$substituir,mb_strtolower($titulo));
     }
 }

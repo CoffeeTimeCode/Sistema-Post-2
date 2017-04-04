@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('titulo');
             $table->string('conteudo');
             $table->string('imagem');
+            $table->string('slug');
             $table->boolean('ativo')->default(true);
             $table->timestamps();
         });
