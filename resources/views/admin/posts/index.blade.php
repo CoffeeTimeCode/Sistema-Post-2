@@ -29,7 +29,7 @@
             <td>{!!$value->categoria!!}</td>
             <td>{!!$value->created_at->diffForHumans()!!}</td>
             <td>
-              <a href="#" class="btn btn-default">Visualizar</a>
+              <a href="{!! url('post/'.$value->categoria.'/'.$value->slug) !!}" class="btn btn-default">Visualizar</a>
               <a href="{!!url('/editar-post/'.$value->id)!!}" class="btn btn-info">Editar</a>
               <a href="{!!url('/deletar-post/'.$value->id)!!}" class="btn btn-danger">Deletar</a>
             </td>

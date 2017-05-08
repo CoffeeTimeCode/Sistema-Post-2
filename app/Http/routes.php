@@ -18,6 +18,11 @@ Route::get('/', function () {
 });
 Route::auth();
 Route::get('/home', 'HomeController@index');
+
+Route::post('/post/enviar-comentario','ComentariosController@store');
+
+Route::get('/post/{categoria}/{slugPost}','PostsController@show');
+
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/painel','Admin\PainelController@index');
     Route::get('/categorias','Admin\CategoriasController@index');
