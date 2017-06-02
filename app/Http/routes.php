@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/editar-post/{id}','Admin\PostsController@update');
 
     Route::get('/lista-de-comentarios','Admin\ComentariosController@index');
+    Route::get('/alterar-status-comentario/{id}/{status}','Admin\ComentariosController@alterarStatus');
  });

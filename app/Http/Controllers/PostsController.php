@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Posts;
-
+use App\Comentarios;
 class PostsController extends Controller
 {
     /**
@@ -51,7 +51,9 @@ class PostsController extends Controller
     {
         $post = Posts::where('slug','=',$slugPost)->first();
         if(!is_null($post)){
-          return view('posts.show')->with('post',$post);
+          return view('posts.show')
+          ->with('post',$post)
+          ->with('comentarios',Comentarios::where('post_id','=',$post->id)->where('status','=','ativo')->get());
         }
     }
 

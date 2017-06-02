@@ -30,8 +30,8 @@
             <?php endif; ?>
             <td>{!!$value->created_at->diffForHumans()!!}</td>
             <td>
-              <a href="" class="btn btn-info">Ativar</a>
-              <a href="" class="btn btn-danger">Deletar</a>
+              <a href="{!! url('alterar-status-comentario/'.$value->id.'/ativo') !!}" class="btn btn-info">Ativar</a>
+              <a href="{!! url('alterar-status-comentario/'.$value->id.'/desativado') !!}" class="btn btn-danger">Deletar</a>
             </td>
           </tr>
         <?php endforeach; ?>

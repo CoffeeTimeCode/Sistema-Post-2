@@ -19,16 +19,18 @@
         </div>
 
         <div class="col-md-6 col-lg-offset-3">
-          <h3 class="text-center">Comentários(0)</h3>
+          <h3 class="text-center">Comentários({!! count($comentarios) !!})</h3>
           <div class="row">
-            <div class="col-md-12">
-              <div class="media alert">
-                <div class="media-body">
-                  <h4 class="media-heading">  <span class="pull-right">  </span></h4>
-
+            <?php foreach ($comentarios as $key => $value): ?>
+              <div class="col-md-12">
+                <div class="media alert">
+                  <div class="media-body">
+                    <h4 class="media-heading">{!! $value->nome !!}<span class="pull-right">{!! $value->created_at->diffForHumans() !!}</span></h4>
+                    {!! $value->conteudo !!}
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php endforeach; ?>
 
           </div>
 

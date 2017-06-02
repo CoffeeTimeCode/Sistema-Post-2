@@ -86,4 +86,12 @@ class ComentariosController extends Controller
     {
         //
     }
+
+    public function alterarStatus($id,$status){
+      $comentario = Comentarios::find($id);
+      $comentario->status = $status;
+      $comentario->save();
+
+      return back();
+    }
 }
