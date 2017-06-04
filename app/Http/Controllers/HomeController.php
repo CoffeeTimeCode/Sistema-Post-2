@@ -5,17 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\Categorias;
+use App\Posts;
+use App\RelacaoPostCategoria;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -24,6 +19,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $posts = Posts::where('ativo','=',true)->orderBy('created_at','desc')->paginate(4);
+      foreach ($posts as $key => $value) {
+        $posts[$key]->categoria = RelacaoPostCategoria::
+                                  join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                                  ->where('relacao_post_categoria.post_id','=',$posts[$key]->id)
+                                  ->first()->categoria;
+      }
+      return view('home')->with('posts', $posts)->with('categorias', Categorias::get());
     }
 }

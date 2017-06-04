@@ -13,11 +13,8 @@ use App\Posts;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::auth();
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::post('/post/enviar-comentario','ComentariosController@store');
 
