@@ -26,7 +26,8 @@
               <h3 class="panel-title">Pesquisar</h3>
             </div>
             <div class="panel-body">
-              <form class="" action="" method="post">
+              <form class="" action="{!! url('pesquisar') !!}" method="post">
+                {!! csrf_field() !!}
                 <div class="form-group">
                   <input type="text" class="form-control" name="pesquisar">
                 </div>
