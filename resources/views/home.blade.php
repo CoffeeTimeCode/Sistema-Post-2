@@ -18,6 +18,10 @@
               </div>
             </div>
           <?php endforeach; ?>
+
+          <div class="text-center">
+            {!! $posts->links() !!}
+          </div>
         </div>
 
         <div class="col-md-4">

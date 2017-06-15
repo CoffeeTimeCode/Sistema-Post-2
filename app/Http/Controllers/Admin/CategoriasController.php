@@ -39,7 +39,10 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        Categorias::create($request->all());
+        $categoria = new Categorias;
+        $categoria->categoria = $request->input('categoria');
+        $categoria->slug = $this->criar_slug($request->input('categoria'));
+        $categoria->save();
         return back()->with('categorias', Categorias::all());
     }
 
@@ -94,5 +97,11 @@ class CategoriasController extends Controller
         $categoria->save();
 
         return redirect('/categorias');
+    }
+
+    function criar_slug($titulo){
+      $procurar =   ['ã','â','ê','é','í','õ','ô','ú',' '];
+      $substituir = ['a','a','e','e','i','o','o','u','-'];
+      return str_replace($procurar,$substituir,mb_strtolower($titulo));
     }
 }
