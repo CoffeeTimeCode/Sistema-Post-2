@@ -30,13 +30,12 @@
               <h3 class="panel-title">Pesquisar</h3>
             </div>
             <div class="panel-body">
-              <form class="" action="{!! url('pesquisar') !!}" method="post">
-                {!! csrf_field() !!}
+              <form class="" action="{!! url('textos') !!}" method="get">
                 <div class="form-group">
                   <input type="text" class="form-control" name="pesquisar">
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-success" name="button">Pesquisar</button>
+                  <button type="submit" class="btn btn-success">Pesquisar</button>
                 </div>
               </form>
             </div>

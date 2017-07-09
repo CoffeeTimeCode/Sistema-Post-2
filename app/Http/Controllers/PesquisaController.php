@@ -14,7 +14,7 @@ class PesquisaController extends Controller
 {
     public function pesquisar(Request $request)
     {
-      $posts = Posts::where('titulo','like','%'.$request->input('pesquisar').'%')->where('ativo','=',true)->get();
+      $posts = Posts::where('titulo','like','%'.$request->input('pesquisar').'%')->where('ativo','=',true)->paginate(4);
       foreach ($posts as $key => $value) {
         $posts[$key]->categoria = RelacaoPostCategoria::
                                   join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')

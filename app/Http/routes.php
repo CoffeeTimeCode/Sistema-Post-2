@@ -18,7 +18,7 @@ Route::get('/', 'HomeController@index');
 
 Route::post('/post/enviar-comentario','ComentariosController@store');
 
-Route::post('/pesquisar','PesquisaController@pesquisar');
+Route::get('/textos','PesquisaController@pesquisar');
 
 Route::get('/post/{categoria}/{slugPost}','PostsController@show');
 
