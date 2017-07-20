@@ -20,6 +20,8 @@ Route::post('/post/enviar-comentario','ComentariosController@store');
 
 Route::get('/textos','PesquisaController@pesquisar');
 
+Route::get('/categoria/{slugCategoria}','CategoriasController@show');
+
 Route::get('/post/{categoria}/{slugPost}','PostsController@show');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {

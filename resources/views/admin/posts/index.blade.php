@@ -20,6 +20,7 @@
         <th>Título</th>
         <th>Categoria</th>
         <th>Data</th>
+        <th>Visualizações</th>
         <th>Ações</th>
       </tr>
         <?php foreach ($posts as $key => $value): ?>
@@ -28,6 +29,7 @@
             <td>{!!$value->titulo!!}</td>
             <td>{!!$value->categoria!!}</td>
             <td>{!!$value->created_at->diffForHumans()!!}</td>
+            <td>{!!$value->visualizacao!!}</td>
             <td>
               <a href="{!! url('post/'.$value->categoria.'/'.$value->slug) !!}" class="btn btn-default">Visualizar</a>
               <a href="{!!url('/editar-post/'.$value->id)!!}" class="btn btn-info">Editar</a>

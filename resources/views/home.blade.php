@@ -47,7 +47,7 @@
             </div>
             <div class="panel-body">
               <?php foreach ($categorias as $key => $value): ?>
-                  <a href="#" class="btn btn-info">{!! $value->categoria !!}</a>
+                  <a href="{!! url('categoria/'.$value->slug) !!}" class="btn btn-info">{!! $value->categoria !!}</a>
               <?php endforeach; ?>
             </div>
           </div>

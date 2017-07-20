@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('conteudo');
             $table->string('imagem');
             $table->string('slug');
+            $table->integer('visualizacao')->default(0);
             $table->boolean('ativo')->default(true);
             $table->timestamps();
         });

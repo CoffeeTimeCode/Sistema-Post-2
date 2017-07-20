@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Categorias;
+use App\RelacaoPostCategoria;
 use App\Posts;
-use App\Comentarios;
-use Auth;
-class PostsController extends Controller
+
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -48,19 +49,23 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($categoria,$slugPost)
+    public function show($slugCategoria)
     {
-        $post = Posts::where('slug','=',$slugPost)->first();
-        if(!is_null($post)){
-          if(!Auth::check()){
-            $post->visualizacao++;
-            $post->save();
-          }
+      $posts = Posts::select('posts.*')
+                ->join('relacao_post_categoria','relacao_post_categoria.post_id','=','posts.id')
+                ->join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                ->where('categorias.slug','=',$slugCategoria)
+                ->where('posts.ativo','=',true)
+                ->orderBy('posts.created_at','desc')
+                ->paginate(4);
+      foreach ($posts as $key => $value) {
+        $posts[$key]->categoria = RelacaoPostCategoria::
+                                  join('categorias','relacao_post_categoria.categoria_id','=','categorias.id')
+                                  ->where('relacao_post_categoria.post_id','=',$posts[$key]->id)
+                                  ->first()->categoria;
+      }
 
-          return view('posts.show')
-          ->with('post',$post)
-          ->with('comentarios',Comentarios::where('post_id','=',$post->id)->where('status','=','ativo')->get());
-        }
+      return view('categorias.show')->with('posts',$posts)->with('categoria',Categorias::where('slug','=',$slugCategoria)->first());
     }
 
     /**
