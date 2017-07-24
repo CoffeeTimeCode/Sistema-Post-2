@@ -14,6 +14,11 @@ use App\Posts;
 */
 
 Route::auth();
+
+Route::get('/register',function(){
+  return redirect('/');
+});
+
 Route::get('/', 'HomeController@index');
 
 Route::post('/post/enviar-comentario','ComentariosController@store');

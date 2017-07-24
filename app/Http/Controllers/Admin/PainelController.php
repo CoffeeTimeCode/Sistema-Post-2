@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Posts;
+use App\Comentarios;
+
 class PainelController extends Controller
 {
     /**
@@ -16,7 +19,13 @@ class PainelController extends Controller
      */
     public function index()
     {
-        return view('admin.painel.index');
+        $total_visualizacoes = Posts::where('ativo','=',true)->sum('visualizacao');
+        $posts = Posts::where('ativo','=',true)->orderBy('visualizacao','desc')->take(3)->get();
+        $comentarios = Comentarios::where('status','=','em-análise')->take(6)->get();
+        return view('admin.painel.index')
+        ->with('total_visualizacoes', $total_visualizacoes)
+        ->with('posts', $posts)
+        ->with('comentarios', $comentarios);
     }
 
     /**
